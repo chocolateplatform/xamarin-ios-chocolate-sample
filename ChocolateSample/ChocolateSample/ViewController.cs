@@ -5,7 +5,10 @@ using ChocolateSDK;
 
 namespace ChocolateSample
 {
-    public partial class ViewController : UIViewController, IChocolatePlatformInterstitialAdDelegate, IChocolatePlatformRewardAdDelegate
+    public partial class ViewController : UIViewController,
+        IChocolatePlatformInterstitialAdDelegate,
+        IChocolatePlatformRewardAdDelegate,
+        IChocolatePlatformInviewAdDelegate
     {
         public ViewController(IntPtr handle) : base(handle)
         {
@@ -13,6 +16,9 @@ namespace ChocolateSample
 
         private ChocolatePlatformInterstitialAdDisplay iad;
         private ChocolatePlatformRewardAdDisplay rad;
+        private ChocolatePlatformInviewAdDisplay ivad;
+
+        private double bannerAdVerticalPos;
 
         public UIViewController RewardAdViewControllerForPresentingModalView => this;
 
@@ -26,6 +32,14 @@ namespace ChocolateSample
             LoadRwdBtn.TouchUpInside += (object sender, EventArgs e) => { LoadRwdAd(); };
             ShowRwdBtn.TouchUpInside += (object sender, EventArgs e) => { ShowRwdAd(); };
             ShowRwdBtn.Enabled = false;
+            InviewAdBtn.TouchUpInside += (object sender, EventArgs e) => { InviewAdAction(); };
+
+            //Inview ad will appear 10 points below Inview Ad Button: 10 point 
+            //gap + 125, which is half of the ad's own height of 250
+            bannerAdVerticalPos =
+                InviewAdBtn.Frame.X +
+                InviewAdBtn.Frame.Height +
+                135.0;
         }
 
         public override void DidReceiveMemoryWarning()
@@ -116,6 +130,44 @@ namespace ChocolateSample
         public void RewardedVideoDidFinish(nuint rewardAmount, string rewardName)
         {
             ShowRwdBtn.Enabled = false;
+        }
+
+        //Mark: - Inview Ad
+
+        public void InviewAdAction()
+        {
+            if(ivad == null) { //need to show ad
+                ivad = new ChocolatePlatformInviewAdDisplay(
+                    ChocolatePlatform.AdUnitID,
+                    ChocolatePlatformAdSize.Banner,
+                    this);
+                ivad.LoadAd();
+            } else { //need to close ad
+                ivad.RemoveFromSuperview();
+                ivad = null;
+            }
+        }
+
+        public void OnBannerAdLoaded(ChocolatePlatformInviewAdDisplay banner)
+        {
+            ivad.ShowIn(this.View, new CoreGraphics.CGPoint(this.View.Center.X, bannerAdVerticalPos));
+            InviewAdBtn.SetTitle("Close Inview Ad", UIControlState.Normal);
+        }
+
+        public void OnBannerAdFailed(ChocolatePlatformInviewAdDisplay banner, int errorCode)
+        {
+            Console.Write("Inview Ad Load Failed");
+            ivad = null;
+        }
+
+        public void OnBannerAdClicked(ChocolatePlatformInviewAdDisplay banner)
+        {
+            Console.Write("Inview Ad Clicked");
+        }
+
+        public void OnBannerAdDissmiss(ChocolatePlatformInviewAdDisplay banner)
+        {
+            InviewAdBtn.SetTitle("Show Inview Ad", UIControlState.Normal);
         }
     }
 }

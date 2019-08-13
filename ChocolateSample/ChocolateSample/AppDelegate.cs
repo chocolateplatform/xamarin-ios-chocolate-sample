@@ -21,7 +21,7 @@ namespace ChocolateSample
         {
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
-            ChocolatePlatform.InitWithAdUnitID("AAAAA"); //replace with your API Key
+            ChocolatePlatform.InitWithAdUnitID("AAAAAA"); //replace with your API Key
             return true;
         }
 

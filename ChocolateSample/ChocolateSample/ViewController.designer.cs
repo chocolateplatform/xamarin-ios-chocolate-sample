@@ -16,6 +16,10 @@ namespace ChocolateSample
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton InviewAdBtn { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton LoadIntBtn { get; set; }
 
         [Outlet]
@@ -32,6 +36,11 @@ namespace ChocolateSample
 
         void ReleaseDesignerOutlets ()
         {
+            if (InviewAdBtn != null) {
+                InviewAdBtn.Dispose ();
+                InviewAdBtn = null;
+            }
+
             if (LoadIntBtn != null) {
                 LoadIntBtn.Dispose ();
                 LoadIntBtn = null;

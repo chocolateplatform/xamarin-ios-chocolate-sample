@@ -51,6 +51,14 @@
                                     <action selector="UIButton197_TouchUpInside:" destination="208" id="207" eventType="touchUpInside"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="822" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="144" y="215" width="126" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Show Inview Ad"/>
+                                <connections>
+                                    <action selector="UIButton197_TouchUpInside:" destination="824" id="823" eventType="touchUpInside"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -58,6 +66,7 @@
                         <outlet property="ShowIntBtn" destination="199" id="name-outlet-199"/>
                         <outlet property="LoadRwdBtn" destination="202" id="name-outlet-202"/>
                         <outlet property="ShowRwdBtn" destination="206" id="name-outlet-206"/>
+                        <outlet property="InviewAdBtn" destination="822" id="name-outlet-822"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
