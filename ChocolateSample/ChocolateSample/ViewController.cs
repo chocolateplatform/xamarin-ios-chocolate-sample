@@ -37,7 +37,7 @@ namespace ChocolateSample
             //Inview ad will appear 10 points below Inview Ad Button: 10 point 
             //gap + 125, which is half of the ad's own height of 250
             bannerAdVerticalPos =
-                InviewAdBtn.Frame.X +
+                InviewAdBtn.Frame.Y +
                 InviewAdBtn.Frame.Height +
                 135.0;
         }
@@ -139,12 +139,13 @@ namespace ChocolateSample
             if(ivad == null) { //need to show ad
                 ivad = new ChocolatePlatformInviewAdDisplay(
                     ChocolatePlatform.AdUnitID,
-                    ChocolatePlatformAdSize.Banner,
+                    ChocolatePlatformAdSize.InView,
                     this);
                 ivad.LoadAd();
             } else { //need to close ad
                 ivad.RemoveFromSuperview();
                 ivad = null;
+                InviewAdBtn.SetTitle("Show Inview Ad", UIControlState.Normal);
             }
         }
 
@@ -167,7 +168,7 @@ namespace ChocolateSample
 
         public void OnBannerAdDissmiss(ChocolatePlatformInviewAdDisplay banner)
         {
-            InviewAdBtn.SetTitle("Show Inview Ad", UIControlState.Normal);
+            
         }
     }
 }
