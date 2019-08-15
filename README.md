@@ -18,8 +18,8 @@ The Chocolate SDK performs ad mediation among different partners, and delivers t
 
 1. Add the Nuget package `xam.ios.chocolate_all` to the project. This package includes the compiled binaries for all the partners, as well as C# files in the `ChocolateSDK` namespace. You will need to include `using ChocolateSDK;` to any file where you use Chocolate's APIs
 
-2. Initialize the SDK with your Chocolate API Key: `ChocolatePlatform.InitWithAdUnitID("AAAAAA");`. It is better to do this as early in the app launch cycle as possible, ideally in the `FinishedLaunching` method of `AppDelegate.cs`.
+2. Initialize the SDK with your Chocolate API Key: `ChocolatePlatform.InitWithAdUnitID("YOUR_API_KEY_HERE");`. It is better to do this as early in the app launch cycle as possible, ideally in the `FinishedLaunching` method of `AppDelegate.cs`.
 
 3. Implement the sets of callback methods to receive events from the SDK for the ad types you want to display. These are declared in the `IChocolatePlatformInterstitialAdDelegate`, `IChocolatePlatformRewardAdDelegate`, and `IChocolatePlatformInviewAdDelegate` interfaces.
 
-4. Create the appropriate ad instances and call the APIs in the manner demonstrated within this project's `ViewController.cs` class.
+4. Create the appropriate ad instances and call the APIs in the manner demonstrated within this project's `ViewController.cs` class. Make sure you only call the ad object's "Show" method (`ShowFrom` for interstitial, `Show` for reward, and `ShowIn` for inview) only after receiving the corresponding Loaded callback.
